@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Compact vocoder research demo page" />
+  <title>LaghuVani • Compact Vocoders for Indic TTS</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #222222;
+      --accent: #2563eb;
+      --muted: #666666;
+      --card: #f5f5f5;
+    }
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --fg: #e2e8f0;
+      --accent: #3b82f6;
+      --muted: #94a3b8;
+      --card: #1e293b;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      scroll-behavior: smooth;
+    }
+    a { color: var(--accent); }
+    header {
+      padding: 2rem 1.25rem 1rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    nav a:hover { color: var(--accent); }
+    .hero {
+      padding: 3rem 1.25rem 2rem;
+      text-align: center;
+      background: var(--card);
+    }
+    .hero h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+    }
+    .hero p { margin: 0.25rem 0; color: var(--muted); }
+    main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 3.5rem; }
+    h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+    h3 { margin: 1.5rem 0 0.5rem; font-size: 1.15rem; }
+    .card {
+      background: var(--card);
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--muted); text-align: left; }
+    th { background: var(--card); }
+    audio { width: 100%; margin: 0.25rem 0 1rem; }
+    footer {
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+    }
+    .theme-toggle {
+      position: fixed; bottom: 1rem; right: 1rem;
+      background: var(--card); color: var(--fg);
+      border: none; border-radius: 999px; padding: 0.6rem 0.9rem;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      font-size: 0.85rem;
+    }
+    code { background: var(--card); padding: 0 0.25rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+  <header>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#models">Models</a>
+      <a href="#demos">Audio Demos</a>
+      <a href="#metrics">Metrics</a>
+      <a href="#cite">Cite</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>LaghuVani: Compact Vocoders for Indic TTS</h1>
+    <p>BigVGAN ➜ tiny footprints. Bengali &amp; Maithili first. Open, reproducible, evaluated.</p>
+  </div>
+
+  <main>
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        This project explores <strong>sub-10M parameter</strong> neural vocoders derived from BigVGAN for
+        low-resource Indic languages. We evaluate subjective (MOS) and objective metrics (PESQ, STOI, SNR, MCD, MSD, PCC, FAD, NISQA) and publish code &amp; samples for transparent comparison.
+      </p>
+      <div class="card">
+        <p><em>Note:</em> This page is a placeholder. Replace text, links and files with your real content.</p>
+      </div>
+    </section>
+
+    <section id="models">
+      <h2>Models</h2>
+      <p>Five downscaled variants (V1–V5) plus a reference BigVGAN baseline:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Params (M)</th>
+            <th>Config</th>
+            <th>Checkpoint</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BigVGAN-Ref</td>
+            <td>112</td>
+            <td><a href="#">JSON</a></td>
+            <td><a href="#">Download</a></td>
+          </tr>
+          <tr>
+            <td>V1</td>
+            <td>6.0</td>
+            <td><a href="#">JSON</a></td>
+            <td><a href="#">Download</a></td>
+          </tr>
+          <tr>
+            <td>V2</td>
+            <td>1.0</td>
+            <td><a href="#">JSON</a></td>
+            <td><a href="#">Download</a></td>
+          </tr>
+          <tr>
+            <td>V3</td>
+            <td>0.5</td>
+            <td><a href="#">JSON</a></td>
+            <td><a href="#">Download</a></td>
+          </tr>
+          <tr>
+            <td>V4</td>
+            <td>0.1</td>
+            <td><a href="#">JSON</a></td>
+            <td><a href="#">Download</a></td>
+          </tr>
+          <tr>
+            <td>V5</td>
+            <td>0.02</td>
+            <td><a href="#">JSON</a></td>
+            <td><a href="#">Download</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="demos">
+      <h2>Audio Demos</h2>
+      <p>Ground truth (GT) + baseline + proposed variants. Replace sources with your own .wav files.</p>
+      <h3>Maithili</h3>
+      <audio controls preload="none" src="assets/audio/maithili_gt.wav">Your browser does not support audio.</audio>
+      <audio controls preload="none" src="assets/audio/maithili_bigvgan.wav"></audio>
+      <audio controls preload="none" src="assets/audio/maithili_v1.wav"></audio>
+      <audio controls preload="none" src="assets/audio/maithili_v2.wav"></audio>
+      <audio controls preload="none" src="assets/audio/maithili_v3.wav"></audio>
+      <audio controls preload="none" src="assets/audio/maithili_v4.wav"></audio>
+      <audio controls preload="none" src="assets/audio/maithili_v5.wav"></audio>
+
+      <h3>Bengali</h3>
+      <audio controls preload="none" src="assets/audio/bengali_gt.wav"></audio>
+      <audio controls preload="none" src="assets/audio/bengali_bigvgan.wav"></audio>
+      <audio controls preload="none" src="assets/audio/bengali_v1.wav"></audio>
+      <audio controls preload="none" src="assets/audio/bengali_v2.wav"></audio>
+      <audio controls preload="none" src="assets/audio/bengali_v3.wav"></audio>
+      <audio controls preload="none" src="assets/audio/bengali_v4.wav"></audio>
+      <audio controls preload="none" src="assets/audio/bengali_v5.wav"></audio>
+    </section>
+
+    <section id="metrics">
+      <h2>Metrics Snapshot</h2>
+      <p>Example placeholder table. Populate from your CSV.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>PESQ</th>
+            <th>STOI</th>
+            <th>MCD</th>
+            <th>MSD</th>
+            <th>PCC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>V1</td><td>1.32</td><td>0.71</td><td>5.02</td><td>0.94</td><td>0.83</td>
+          </tr>
+          <tr>
+            <td>V2</td><td>1.28</td><td>0.69</td><td>5.14</td><td>0.97</td><td>0.81</td>
+          </tr>
+          <tr>
+            <td>V3</td><td>1.20</td><td>0.66</td><td>5.40</td><td>1.02</td><td>0.78</td>
+          </tr>
+          <tr>
+            <td>V4</td><td>1.15</td><td>0.64</td><td>5.63</td><td>1.06</td><td>0.76</td>
+          </tr>
+          <tr>
+            <td>V5</td><td>1.05</td><td>0.61</td><td>5.90</td><td>1.11</td><td>0.72</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="cite">
+      <h2>Citation</h2>
+      <p>Please cite the project if you use it in academic work. Example:</p>
+      <pre><code>@inproceedings{laghuvani2025,
+  title={LaghuVani: Balancing Compactness and Quality in Indic Language Vocoding},
+  author={Anonymous},
+  booktitle={Proceedings of ...},
+  year={2025}
+}</code></pre>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        For questions, open an issue in the repository or email the maintainer at
+        <code>research-contact@example.org</code> (replace with a generic lab email).
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> LaghuVani / Speech Lab. This page is served via GitHub Pages.</p>
+  </footer>
+
+  <script>
+    // Year auto-fill
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    function toggleTheme(){
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? '' : 'dark';
+      if(next){ root.setAttribute('data-theme', next); }
+      else { root.removeAttribute('data-theme'); }
+      localStorage.setItem('theme', next);
+    }
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if(saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    })();
+  </script>
+</body>
+</html>
