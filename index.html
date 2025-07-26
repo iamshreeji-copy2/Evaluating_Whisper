@@ -83,6 +83,10 @@
       font-size: 0.85rem;
     }
     code { background: var(--card); padding: 0 0.25rem; border-radius: 4px; }
+
+    /* === Audio rows === */
+    .audio-row{ display:flex; align-items:center; gap:0.75rem; margin:0.35rem 0; }
+    .audio-label{ width:130px; font-size:0.9rem; color:var(--muted); text-align:right; }
   </style>
 </head>
 <body>
@@ -132,44 +136,44 @@
           <tr>
             <td>BigVGAN-Ref</td>
             <td>112</td>
-            <td><a href="assets\configs\bigvgan_22khz_80band.json">JSON</a></td>
+            <td><a href="assets/configs/bigvgan_22khz_80band.json">JSON</a></td>
             <td></td>
             <td></td>
           </tr>
           <tr>
             <td>V1</td>
             <td>6.0</td>
-            <td><a href="assets\configs\config_6M.json">JSON</a></td>
-            <td><a href="assets\ckpts\checkpoint_mai_6M">Download</a></td>
-            <td><a href="assets\ckpts\checkpoint_ben_6M">Download</a></td>
+            <td><a href="assets/configs/config_6M.json">JSON</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_6M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_ben_6M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>V2</td>
             <td>1.0</td>
-            <td><a href="assets\configs\config_1M.json">JSON</a></td>
-            <td><a href="assets\ckpts\checkpoint_mai_1M">Download</a></td>
-            <td><a href="assets\ckpts\checkpoint_ben_1M">Download</a></td>
+            <td><a href="assets/configs/config_1M.json">JSON</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_1M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_ben_1M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>V3</td>
             <td>0.5</td>
-            <td><a href="assets\configs\config_0_5M.json">JSON</a></td>
-            <td><a href="assets\ckpts\checkpoint_mai_0_5M">Download</a></td>
-            <td><a href="assets\ckpts\checkpoint_ben_0_5M">Download</a></td>
+            <td><a href="assets/configs/config_0_5M.json">JSON</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_0_5M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_ben_0_5M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>V4</td>
             <td>0.1</td>
-            <td><a href="assets\configs\config_0_1M.json">JSON</a></td>
-            <td><a href="assets\ckpts\checkpoint_mai_0_1M">Download</a></td>
-            <td><a href="assets\ckpts\checkpoint_ben_0_1M">Download</a></td>
+            <td><a href="assets/configs/config_0_1M.json">JSON</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_0_1M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_ben_0_1M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>V5</td>
             <td>0.02</td>
-            <td><a href="assets\configs\config_0_02M.json">JSON</a></td>
-            <td><a href="assets\ckpts\checkpoint_ben_0_02M">Download</a></td>
-            <td><a href="assets\ckpts\checkpoint_mai_0_02M">Download</a></td>
+            <td><a href="assets/configs/config_0_02M.json">JSON</a></td>
+            <td><a href="assets/ckpts/checkpoint_ben_0_02M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_0_02M.pt" download>Download</a></td>
           </tr>
         </tbody>
       </table>
@@ -177,24 +181,53 @@
 
     <section id="demos">
       <h2>Audio Demos</h2>
-      <p>Ground truth (GT) + baseline + proposed variants. Replace sources with your own .wav files.</p>
+      <p>Ground truth (GT) + baseline + proposed variants.</p>
+
       <h3>Maithili</h3>
-      <audio controls preload="none" src="assets/audio/maithili_gt.wav">Your browser does not support audio.</audio>
-      <audio controls preload="none" src="assets/audio/maithili_bigvgan.wav"></audio>
-      <audio controls preload="none" src="assets/audio/maithili_v1.wav"></audio>
-      <audio controls preload="none" src="assets/audio/maithili_v2.wav"></audio>
-      <audio controls preload="none" src="assets/audio/maithili_v3.wav"></audio>
-      <audio controls preload="none" src="assets/audio/maithili_v4.wav"></audio>
-      <audio controls preload="none" src="assets/audio/maithili_v5.wav"></audio>
+      <div class="audio-row"><span class="audio-label">GT</span>
+        <audio controls preload="none" src="assets/audio/maithili_gt.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">BigVGAN-Ref</span>
+        <audio controls preload="none" src="assets/audio/maithili_bigvgan.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V1 (6M)</span>
+        <audio controls preload="none" src="assets/audio/maithili_v1.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V2 (1M)</span>
+        <audio controls preload="none" src="assets/audio/maithili_v2.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V3 (0.5M)</span>
+        <audio controls preload="none" src="assets/audio/maithili_v3.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V4 (0.1M)</span>
+        <audio controls preload="none" src="assets/audio/maithili_v4.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V5 (0.02M)</span>
+        <audio controls preload="none" src="assets/audio/maithili_v5.wav"></audio>
+      </div>
 
       <h3>Bengali</h3>
-      <audio controls preload="none" src="assets/audio/bengali_gt.wav"></audio>
-      <audio controls preload="none" src="assets/audio/bengali_bigvgan.wav"></audio>
-      <audio controls preload="none" src="assets/audio/bengali_v1.wav"></audio>
-      <audio controls preload="none" src="assets/audio/bengali_v2.wav"></audio>
-      <audio controls preload="none" src="assets/audio/bengali_v3.wav"></audio>
-      <audio controls preload="none" src="assets/audio/bengali_v4.wav"></audio>
-      <audio controls preload="none" src="assets/audio/bengali_v5.wav"></audio>
+      <div class="audio-row"><span class="audio-label">GT</span>
+        <audio controls preload="none" src="assets/audio/bengali_gt.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">BigVGAN-Ref</span>
+        <audio controls preload="none" src="assets/audio/bengali_bigvgan.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V1 (6M)</span>
+        <audio controls preload="none" src="assets/audio/bengali_v1.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V2 (1M)</span>
+        <audio controls preload="none" src="assets/audio/bengali_v2.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V3 (0.5M)</span>
+        <audio controls preload="none" src="assets/audio/bengali_v3.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V4 (0.1M)</span>
+        <audio controls preload="none" src="assets/audio/bengali_v4.wav"></audio>
+      </div>
+      <div class="audio-row"><span class="audio-label">V5 (0.02M)</span>
+        <audio controls preload="none" src="assets/audio/bengali_v5.wav"></audio>
+      </div>
     </section>
 
     <section id="metrics">
