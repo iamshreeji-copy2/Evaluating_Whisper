@@ -202,7 +202,7 @@
 
   <div class="hero">
     <h1>LaghuVani</h1>
-    <p>Balancing Compactness and Quality in Indic Language Vocoding because Less is Sometimes More!</p>
+    <p>Understanding and Mitigating the Tradeoff between Compactness and Quality in Bengali and Maithili</p>
   </div>
 
   <main>
@@ -213,7 +213,7 @@
         synthesis feasible for underrepresented Indic languages such as Maithili and Bengali on constrained hardware.
       </p>
       <p>With longer training, these tiny models still retain much of the intelligibility and perceived quality. The 6M
-        variant (V1) provides the best size–quality trade-off (STOI around 0.90 with NISQA above 3), while the 0.02M
+        variant (LaghuVani-V1) provides the best size–quality trade-off (STOI around 0.90 with NISQA above 3), while the 0.02M
         model showcases the extreme compression limit.</p>
       <p>Evaluation spans two subjective metrics (MOS, NISQA) and seven objective ones (PESQ, STOI, SNR, MCD, FAD, MSD,
         PCC). We release configs, checkpoints and audio samples to enable transparent, reproducible comparison.</p>
@@ -221,55 +221,55 @@
 
     <section id="models">
       <h2>Models</h2>
-      <p>Five downscaled variants (V1–V5) plus a reference BigVGAN baseline:</p>
+      <p>Five downscaled variants (LaghuVani V1–V5):</p>
       <table>
         <thead>
           <tr>
             <th>Model</th>
             <th>Params (M)</th>
             <th>Config</th>
-            <th>Checkpoint (Maithili)</th>
             <th>Checkpoint (Bengali)</th>
+            <th>Checkpoint (Maithili)</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>BigVGAN-Ref</td>
+          <!-- <tr>
+            <td>BigVGAN (Baseline)</td>
             <td>112</td>
             <td><a href="assets/configs/bigvgan_22khz_80band.json">JSON</a></td>
             <td></td>
             <td></td>
-          </tr>
+          </tr> -->
           <tr>
-            <td>V1</td>
+            <td>LaghuVani-V1</td>
             <td>6.0</td>
             <td><a href="assets/configs/config_6M.json">JSON</a></td>
-            <td><a href="assets/ckpts/checkpoint_mai_6M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_6M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_6M.pt" download>Download</a></td>
           </tr>
           <tr>
-            <td>V2</td>
+            <td>LaghuVani-V2</td>
             <td>1.0</td>
             <td><a href="assets/configs/config_1M.json">JSON</a></td>
-            <td><a href="assets/ckpts/checkpoint_mai_1M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_1M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_1M.pt" download>Download</a></td>
           </tr>
           <tr>
-            <td>V3</td>
+            <td>LaghuVani-V3</td>
             <td>0.5</td>
             <td><a href="assets/configs/config_0_5M.json">JSON</a></td>
-            <td><a href="assets/ckpts/checkpoint_mai_0_5M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_0_5M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_0_5M.pt" download>Download</a></td>
           </tr>
           <tr>
-            <td>V4</td>
+            <td>LaghuVani-V4</td>
             <td>0.1</td>
             <td><a href="assets/configs/config_0_1M.json">JSON</a></td>
-            <td><a href="assets/ckpts/checkpoint_mai_0_1M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_0_1M.pt" download>Download</a></td>
+            <td><a href="assets/ckpts/checkpoint_mai_0_1M.pt" download>Download</a></td>
           </tr>
           <tr>
-            <td>V5</td>
+            <td>LaghuVani-V5</td>
             <td>0.02</td>
             <td><a href="assets/configs/config_0_02M.json">JSON</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_0_02M.pt" download>Download</a></td>
@@ -281,63 +281,7 @@
 
     <section id="demos">
       <h2>Audio Demos</h2>
-      <p>Ground truth (GT) + baseline + proposed variants.</p>
-
-      <!-- ================= Maithili ================= -->
-      <h3>Maithili</h3>
-      <div class="audio-grid">
-        <!-- Male column -->
-        <div class="audio-col male">
-          <h4 class="audio-col-title">Male</h4>
-          <div class="audio-row"><span class="audio-label">GT</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">BigVGAN-Ref</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_Big.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V1 (6M)</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_6M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V2 (1M)</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_1M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V3 (0.5M)</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_0_5M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V4 (0.1M)</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_0_1M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V5 (0.02M)</span>
-            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_0_02M.wav"></audio>
-          </div>
-        </div>
-
-        <!-- Female column -->
-        <div class="audio-col female">
-          <h4 class="audio-col-title">Female</h4>
-          <div class="audio-row"><span class="audio-label">GT</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">BigVGAN-Ref</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_Big.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V1 (6M)</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_6M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V2 (1M)</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_1M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V3 (0.5M)</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_0_5M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V4 (0.1M)</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_0_1M.wav"></audio>
-          </div>
-          <div class="audio-row"><span class="audio-label">V5 (0.02M)</span>
-            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_0_02M.wav"></audio>
-          </div>
-        </div>
-      </div>
+      <p>Ground truth + BigVGAN (baseline) + LaghuVani variants.</p>
 
       <!-- ================= Bengali ================= -->
       <h3>Bengali</h3>
@@ -345,25 +289,25 @@
         <!-- Male column -->
         <div class="audio-col male">
           <h4 class="audio-col-title">Male</h4>
-          <div class="audio-row"><span class="audio-label">GT</span>
+          <div class="audio-row"><span class="audio-label">Ground Truth</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">BigVGAN-Ref</span>
+          <div class="audio-row"><span class="audio-label">Baseline</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528_Big.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">V1 (6M)</span>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V1</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528_6M.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">V2 (1M)</span>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V2</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528_1M.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">V3 (0.5M)</span>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V3</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528_0_5M.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">V4 (0.1M)</span>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V4</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528_0_1M.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">V5 (0.02M)</span>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V5</span>
             <audio controls preload="none" src="assets/audio/bn_m_WEAT_01528_0_02M.wav"></audio>
           </div>
         </div>
@@ -371,10 +315,10 @@
         <!-- Female column -->
         <div class="audio-col female">
           <h4 class="audio-col-title">Female</h4>
-          <div class="audio-row"><span class="audio-label">GT</span>
+          <div class="audio-row"><span class="audio-label">Ground Truth</span>
             <audio controls preload="none" src="assets/audio/bn_f_AGRI_00180.wav"></audio>
           </div>
-          <div class="audio-row"><span class="audio-label">BigVGAN-Ref</span>
+          <div class="audio-row"><span class="audio-label">Baseline</span>
             <audio controls preload="none" src="assets/audio/bn_f_AGRI_00180_Big.wav"></audio>
           </div>
           <div class="audio-row"><span class="audio-label">V1 (6M)</span>
@@ -391,6 +335,62 @@
           </div>
           <div class="audio-row"><span class="audio-label">V5 (0.02M)</span>
             <audio controls preload="none" src="assets/audio/bn_f_AGRI_00180_0_02M.wav"></audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Maithili ================= -->
+      <h3>Maithili</h3>
+      <div class="audio-grid">
+        <!-- Male column -->
+        <div class="audio-col male">
+          <h4 class="audio-col-title">Male</h4>
+          <div class="audio-row"><span class="audio-label">Ground Truth</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">Baseline</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_Big.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V1</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_6M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V2</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_1M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V3</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_0_5M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V4</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_0_1M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V5</span>
+            <audio controls preload="none" src="assets/audio/mai_m_TECH_01026_0_02M.wav"></audio>
+          </div>
+        </div>
+
+        <!-- Female column -->
+        <div class="audio-col female">
+          <h4 class="audio-col-title">Female</h4>
+          <div class="audio-row"><span class="audio-label">Ground Truth</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">Baseline</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_Big.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V1</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_6M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V2</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_1M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V3</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_0_5M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V4</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_0_1M.wav"></audio>
+          </div>
+          <div class="audio-row"><span class="audio-label">LaghuVani-V5</span>
+            <audio controls preload="none" src="assets/audio/mai_f_AGRI_00033_0_02M.wav"></audio>
           </div>
         </div>
       </div>
@@ -444,7 +444,7 @@
         .then(data => {
           const sec = document.getElementById('metrics');
           sec.querySelectorAll('table').forEach(t => t.remove());
-          ['Maithili', 'Bengali'].forEach(lang =>
+          ['Bengali', 'Maithili'].forEach(lang =>
             sec.appendChild(buildTable(lang, data))
           );
         })
@@ -461,8 +461,8 @@
           Language:
           <select id="lang-select">
             <option>Both</option>
-            <option>Maithili</option>
             <option>Bengali</option>
+            <option>Maithili</option>
           </select>
         </label>
         <label>
@@ -515,7 +515,7 @@
         const metricVal = document.getElementById('metric-select').value;
 
         // choose which languages to plot
-        const langs = (langVal === 'Both') ? ['Maithili', 'Bengali'] : [langVal];
+        const langs = (langVal === 'Both') ? ['Bengali', 'Maithili'] : [langVal];
 
         let traces, layout;
         if (metricVal === 'All') {
@@ -608,7 +608,7 @@
   </main>
 
   <footer>
-    <p>© <span id="year"></span> LaghuVani / Speech Lab. This page is served via GitHub Pages.</p>
+    <p>© <span id="year"></span> LaghuVani / Speech Research Lab @ DAU. This page is served via GitHub Pages.</p>
   </footer>
 
   <script>
