@@ -96,16 +96,11 @@
       font-size: 1.15rem;
     }
 
-    .card {
-      background: var(--card);
-      padding: 1rem 1.25rem;
-      border-radius: 0.75rem;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
+      margin-top: 1rem;
     }
 
     th,
@@ -117,18 +112,6 @@
 
     th {
       background: var(--card);
-    }
-
-    audio {
-      width: 100%;
-      margin: 0.25rem 0 1rem;
-    }
-
-    footer {
-      font-size: 0.8rem;
-      text-align: center;
-      padding: 2rem 1rem;
-      color: var(--muted);
     }
 
     .theme-toggle {
@@ -145,10 +128,12 @@
       font-size: 0.85rem;
     }
 
-    code {
-      background: var(--card);
-      padding: 0 0.25rem;
-      border-radius: 4px;
+    .chart-controls {
+      margin-bottom: 1rem;
+    }
+
+    .chart-controls label {
+      margin-right: 1.5rem;
     }
 
     /* === Audio rows === */
@@ -166,7 +151,7 @@
       text-align: right;
     }
 
-    /* === Two-column male/female layout === */
+    /* === Two‑column male/female layout === */
     .audio-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -181,7 +166,7 @@
       color: var(--muted);
     }
 
-    @media (max-width:768px) {
+    @media (max-width: 768px) {
       .audio-grid {
         grid-template-columns: 1fr;
       }
@@ -191,18 +176,26 @@
         width: 100px;
       }
     }
+
+    footer {
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+    }
   </style>
 </head>
 
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
   <header>
     <nav>
       <a href="#about">About</a>
       <a href="#models">Models</a>
       <a href="#demos">Audio Demos</a>
       <a href="#metrics">Metrics</a>
-      <!-- <a href="#cite">Cite</a> -->
+      <a href="#graphs">Graphs</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -403,309 +396,214 @@
       </div>
     </section>
 
+    <!-- Dynamic Metrics Table (with ± std) -->
     <section id="metrics">
       <h2>Metrics Snapshot</h2>
       <p>Objective metrics (↑ higher is better, ↓ lower is better). MOS is from listening tests.</p>
-
-      <!-- Maithili -->
-      <h3>Maithili</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>MOS&nbsp;↑</th>
-            <th>NISQA&nbsp;↑</th>
-            <th>PESQ&nbsp;↑</th>
-            <th>STOI&nbsp;↑</th>
-            <th>SNR&nbsp;↑ (dB)</th>
-            <th>MCD&nbsp;↓</th>
-            <th>FAD&nbsp;↓</th>
-            <th>PCC&nbsp;↑</th>
-            <th>MSD&nbsp;↓</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ground-Truth</td>
-            <td>—</td>
-            <td>4.554 <small>±0.405</small></td>
-            <td>4.644 <small>±0.000</small></td>
-            <td>1.000 <small>±0.000</small></td>
-            <td>73.810 <small>±1.591</small></td>
-            <td>0.000 <small>±0.000</small></td>
-            <td>—</td>
-            <td>1.000 <small>±0.000</small></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>VocGAN</td>
-            <td>—</td>
-            <td>4.211 <small>±0.531</small></td>
-            <td>2.765 <small>±0.217</small></td>
-            <td>0.951 <small>±0.009</small></td>
-            <td>-2.880 <small>±0.543</small></td>
-            <td>30.591 <small>±2.965</small></td>
-            <td>15.6243 <small>±0.0579</small></td>
-            <td>-0.035 <small>±0.123</small></td>
-            <td>0.5479 <small>±0.1448</small></td>
-          </tr>
-          <tr>
-            <td>UnivNet</td>
-            <td>—</td>
-            <td>4.254 <small>±0.502</small></td>
-            <td>3.249 <small>±0.215</small></td>
-            <td>0.973 <small>±0.006</small></td>
-            <td>-2.440 <small>±0.770</small></td>
-            <td>20.457 <small>±1.732</small></td>
-            <td>30.9699 <small>±0.0986</small></td>
-            <td>0.072 <small>±0.160</small></td>
-            <td>0.5590 <small>±0.1286</small></td>
-          </tr>
-          <tr>
-            <td>HiFiGAN</td>
-            <td>—</td>
-            <td>4.568 <small>±0.365</small></td>
-            <td>3.088 <small>±0.257</small></td>
-            <td>0.967 <small>±0.005</small></td>
-            <td>-2.530 <small>±0.530</small></td>
-            <td>19.190 <small>±2.592</small></td>
-            <td>8.3222 <small>±0.0549</small></td>
-            <td>0.017 <small>±0.105</small></td>
-            <td>0.3384 <small>±0.0754</small></td>
-          </tr>
-          <tr>
-            <td>BigVGAN</td>
-            <td>—</td>
-            <td>4.563 <small>±0.402</small></td>
-            <td>4.450 <small>±0.106</small></td>
-            <td>0.997 <small>±0.001</small></td>
-            <td>5.259 <small>±3.171</small></td>
-            <td>4.271 <small>±0.776</small></td>
-            <td>9.8702 <small>±0.0474</small></td>
-            <td>0.805 <small>±0.141</small></td>
-            <td>0.1340 <small>±0.0398</small></td>
-          </tr>
-          <tr>
-            <td>V1 (6M)</td>
-            <td>2.8</td>
-            <td>3.256 <small>±0.538</small></td>
-            <td>1.894 <small>±0.142</small></td>
-            <td>0.916 <small>±0.013</small></td>
-            <td>-1.366 <small>±1.242</small></td>
-            <td>21.469 <small>±1.965</small></td>
-            <td>15.1065 <small>±0.1292</small></td>
-            <td>0.195 <small>±0.218</small></td>
-            <td>0.6522 <small>±0.1561</small></td>
-          </tr>
-          <tr>
-            <td>V2 (1M)</td>
-            <td>2.05</td>
-            <td>1.675 <small>±0.327</small></td>
-            <td>1.196 <small>±0.044</small></td>
-            <td>0.818 <small>±0.040</small></td>
-            <td>-1.409 <small>±0.431</small></td>
-            <td>32.917 <small>±4.325</small></td>
-            <td>78.6525 <small>±0.3719</small></td>
-            <td>0.047 <small>±0.067</small></td>
-            <td>0.8568 <small>±0.2035</small></td>
-          </tr>
-          <tr>
-            <td>V3 (0.5M)</td>
-            <td>1.25</td>
-            <td>0.890 <small>±0.156</small></td>
-            <td>1.058 <small>±0.011</small></td>
-            <td>0.683 <small>±0.051</small></td>
-            <td>-1.006 <small>±0.596</small></td>
-            <td>52.179 <small>±5.183</small></td>
-            <td>158.4913 <small>±0.4578</small></td>
-            <td>-0.023 <small>±0.039</small></td>
-            <td>1.5561 <small>±0.5606</small></td>
-          </tr>
-          <tr>
-            <td>V4 (0.1M)</td>
-            <td>1.4</td>
-            <td>0.847 <small>±0.132</small></td>
-            <td>1.061 <small>±0.013</small></td>
-            <td>0.704 <small>±0.051</small></td>
-            <td>-0.560 <small>±0.244</small></td>
-            <td>47.178 <small>±5.117</small></td>
-            <td>158.6711 <small>±0.4519</small></td>
-            <td>0.065 <small>±0.068</small></td>
-            <td>1.5092 <small>±0.6186</small></td>
-          </tr>
-          <tr>
-            <td>V5 (0.02M)</td>
-            <td>1.3</td>
-            <td>0.843 <small>±0.144</small></td>
-            <td>1.057 <small>±0.011</small></td>
-            <td>0.693 <small>±0.053</small></td>
-            <td>-0.662 <small>±0.275</small></td>
-            <td>49.103 <small>±5.189</small></td>
-            <td>163.5729 <small>±0.4795</small></td>
-            <td>0.054 <small>±0.071</small></td>
-            <td>1.5107 <small>±0.6213</small></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Bengali -->
-      <h3>Bengali</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>MOS&nbsp;↑</th>
-            <th>NISQA&nbsp;↑</th>
-            <th>PESQ&nbsp;↑</th>
-            <th>STOI&nbsp;↑</th>
-            <th>SNR&nbsp;↑ (dB)</th>
-            <th>MCD&nbsp;↓</th>
-            <th>FAD&nbsp;↓</th>
-            <th>PCC&nbsp;↑</th>
-            <th>MSD&nbsp;↓</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ground-Truth</td>
-            <td>—</td>
-            <td>4.814 <small>±0.395</small></td>
-            <td>4.644 <small>±0.000</small></td>
-            <td>1.000 <small>±0.000</small></td>
-            <td>62.485 <small>±2.379</small></td>
-            <td>0.000 <small>±0.000</small></td>
-            <td>—</td>
-            <td>1.000 <small>±0.000</small></td>
-            <!-- <td>0.1905 <small>±0.1022</small></td> --> <td>—</td>
-          </tr>
-          <tr>
-            <td>VocGAN</td>
-            <td>—</td>
-            <td>4.621 <small>±0.292</small></td>
-            <td>2.676 <small>±0.289</small></td>
-            <td>0.947 <small>±0.018</small></td>
-            <td>-3.031 <small>±0.460</small></td>
-            <td>35.979 <small>±6.023</small></td>
-            <td>23.6447 <small>±0.1212</small></td>
-            <td>-0.023 <small>±0.108</small></td>
-            <td>0.2092 <small>±0.0853</small></td>
-          </tr>
-          <tr>
-            <td>UnivNet</td>
-            <td>—</td>
-            <td>4.654 <small>±0.427</small></td>
-            <td>3.259 <small>±0.192</small></td>
-            <td>0.973 <small>±0.009</small></td>
-            <td>-2.797 <small>±0.491</small></td>
-            <td>17.696 <small>±3.298</small></td>
-            <td>26.9846 <small>±0.0686</small></td>
-            <td>0.021 <small>±0.105</small></td>
-            <td>0.1905 <small>±0.1022</small></td>
-          </tr>
-          <tr>
-            <td>HiFiGAN</td>
-            <td>—</td>
-            <td>4.740 <small>±0.331</small></td>
-            <td>3.024 <small>±0.147</small></td>
-            <td>0.964 <small>±0.006</small></td>
-            <td>-2.663 <small>±0.505</small></td>
-            <td>18.181 <small>±2.330</small></td>
-            <td>11.7259 <small>±0.0612</small></td>
-            <td>-0.006 <small>±0.109</small></td>
-            <td>0.2146 <small>±0.0771</small></td>
-          </tr>
-          <tr>
-            <td>BigVGAN</td>
-            <td>—</td>
-            <td>4.794 <small>±0.431</small></td>
-            <td>4.427 <small>±0.123</small></td>
-            <td>0.997 <small>±0.001</small></td>
-            <td>4.110 <small>±3.679</small></td>
-            <td>4.130 <small>±1.016</small></td>
-            <td>14.5949 <small>±0.0554</small></td>
-            <td>0.727 <small>±0.210</small></td>
-            <td>0.0528 <small>±0.0306</small></td>
-          </tr>
-          <tr>
-            <td>V1 (6M)</td>
-            <td>3.8</td>
-            <td>2.834 <small>±0.577</small></td>
-            <td>1.748 <small>±0.111</small></td>
-            <td>0.901 <small>±0.014</small></td>
-            <td>-2.092 <small>±0.329</small></td>
-            <td>25.862 <small>±3.314</small></td>
-            <td>23.5274 <small>±0.1347</small></td>
-            <td>0.044 <small>±0.081</small></td>
-            <td>0.4095 <small>±0.2010</small></td>
-          </tr>
-          <tr>
-            <td>V2 (1M)</td>
-            <td>2.8</td>
-            <td>1.278 <small>±0.210</small></td>
-            <td>1.206 <small>±0.054</small></td>
-            <td>0.797 <small>±0.053</small></td>
-            <td>-1.028 <small>±0.432</small></td>
-            <td>37.492 <small>±7.803</small></td>
-            <td>87.7724 <small>±0.2991</small></td>
-            <td>0.044 <small>±0.057</small></td>
-            <td>0.7763 <small>±0.4825</small></td>
-          </tr>
-          <tr>
-            <td>V3 (0.5M)</td>
-            <td>1.45</td>
-            <td>0.679 <small>±0.122</small></td>
-            <td>1.047 <small>±0.009</small></td>
-            <td>0.684 <small>±0.059</small></td>
-            <td>-0.708 <small>±0.417</small></td>
-            <td>59.083 <small>±5.098</small></td>
-            <td>163.0243 <small>±0.3596</small></td>
-            <td>0.004 <small>±0.018</small></td>
-            <td>1.1728 <small>±0.6254</small></td>
-          </tr>
-          <tr>
-            <td>V4 (0.1M)</td>
-            <td>1.45</td>
-            <td>0.705 <small>±0.099</small></td>
-            <td>1.062 <small>±0.014</small></td>
-            <td>0.691 <small>±0.064</small></td>
-            <td>-0.525 <small>±0.234</small></td>
-            <td>55.891 <small>±6.017</small></td>
-            <td>158.4043 <small>±0.3609</small></td>
-            <td>0.002 <small>±0.018</small></td>
-            <td>1.1927 <small>±0.5758</small></td>
-          </tr>
-          <tr>
-            <td>V5 (0.02M)</td>
-            <td>1.4</td>
-            <td>0.659 <small>±0.088</small></td>
-            <td>1.055 <small>±0.011</small></td>
-            <td>0.688 <small>±0.062</small></td>
-            <td>-0.599 <small>±0.300</small></td>
-            <td>65.229 <small>±8.208</small></td>
-            <td>159.7676 <small>±0.3773</small></td>
-            <td>0.012 <small>±0.021</small></td>
-            <td>1.1101 <small>±0.6033</small></td>
-          </tr>
-        </tbody>
-      </table>
     </section>
 
-    <!-- <section id="cite">
-      <h2>Citation</h2>
-      <p>Please cite the project if you use it in academic work. Example:</p>
-      <pre><code>@inproceedings{laghuvani2025,
-        title={LaghuVani: Balancing Compactness and Quality in Indic Language Vocoding},
-        author={Anonymous},
-        booktitle={Proceedings of ...},
-        year={2025}
-      }</code></pre>
-    </section> -->
+    <script>
+      const metricsOrder = ['MOS', 'NISQA', 'PESQ', 'STOI', 'SNR', 'MCD', 'FAD', 'PCC', 'MSD'];
+
+      function buildTable(lang, data) {
+        const tbl = document.createElement('table');
+        tbl.innerHTML = `
+      <caption><h3>${lang}</h3></caption>
+      <thead>
+        <tr>
+          <th>Model</th>
+          ${metricsOrder.map(m => `<th>${m}&nbsp;↑</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${Array.from(new Set(
+          metricsOrder.flatMap(metric =>
+            data[lang][metric].map(d => d.model)
+          )
+        )).map(model => {
+          return `<tr>
+              <td>${model}</td>
+              ${metricsOrder.map(metric => {
+            const found = data[lang][metric].find(d => d.model === model);
+            if (!found) return `<td>—</td>`;
+            // round to 3 decimal places
+            const mean = found.value.toFixed(3);
+            const std = (found.std != null)
+              ? ` ± ${found.std.toFixed(3)}`
+              : '';
+            return `<td>${mean}${std}</td>`;
+          }).join('')}
+            </tr>`;
+        }).join('')}
+      </tbody>`;
+        return tbl;
+      }
+
+      fetch('assets/data/metrics.json')
+        .then(r => r.json())
+        .then(data => {
+          const sec = document.getElementById('metrics');
+          sec.querySelectorAll('table').forEach(t => t.remove());
+          ['Maithili', 'Bengali'].forEach(lang =>
+            sec.appendChild(buildTable(lang, data))
+          );
+        })
+        .catch(console.error);
+    </script>
+
+
+    <!-- Interactive Plotly Graph -->
+    <section id="graphs">
+      <h2>Interactive Metrics</h2>
+
+      <div class="chart-controls">
+        <label>
+          Language:
+          <select id="lang-select">
+            <option>Both</option>
+            <option>Maithili</option>
+            <option>Bengali</option>
+          </select>
+        </label>
+        <label>
+          Metric:
+          <select id="metric-select"></select>
+        </label>
+      </div>
+
+      <div id="metrics-chart" style="height:400px;"></div>
+    </section>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      let globalData;
+      const metrics = ['MOS', 'NISQA', 'PESQ', 'STOI', 'SNR', 'MCD', 'FAD', 'PCC', 'MSD'];
+
+      // after JSON loads, populate the Metric <select> & draw
+      fetch('assets/data/metrics.json')
+        .then(r => r.json())
+        .then(dataStore => {
+          globalData = dataStore;
+          const msel = document.getElementById('metric-select');
+
+          // helper to rebuild metric-options based on language
+          function rebuildMetricsOptions(langVal) {
+            msel.innerHTML = '';
+            if (langVal !== 'Both') {
+              msel.add(new Option('All'));
+            }
+            metrics.forEach(m => msel.add(new Option(m)));
+          }
+
+          // initial build
+          rebuildMetricsOptions('Both');
+
+          // wire up both selects
+          document.getElementById('lang-select').onchange = function () {
+            rebuildMetricsOptions(this.value);
+            updateChart();
+          };
+          msel.onchange = updateChart;
+
+          // initial chart draw
+          updateChart();
+        })
+        .catch(console.error);
+
+      function updateChart() {
+        const langVal = document.getElementById('lang-select').value;
+        const metricVal = document.getElementById('metric-select').value;
+
+        // choose which languages to plot
+        const langs = (langVal === 'Both') ? ['Maithili', 'Bengali'] : [langVal];
+
+        let traces, layout;
+        if (metricVal === 'All') {
+          // one trace per metric (single language only)
+          traces = metrics.map(metric => {
+            const arr = globalData[langs[0]][metric];
+            return {
+              x: arr.map(d => d.model),
+              y: arr.map(d => d.value),
+              error_y: {
+                type: 'data',
+                array: arr.map(d => d.std),
+                visible: true
+              },
+              name: metric,
+              type: 'bar'
+            };
+          });
+          layout = {
+            barmode: 'group',
+            title: { text: `${langs[0]} – All Metrics`, x: 0.5 },
+            xaxis: { title: 'Model' }
+          };
+        } else {
+          // one trace per language for a single metric
+          traces = langs.map(lang => {
+            const arr = globalData[lang][metricVal];
+            return {
+              x: arr.map(d => d.model),
+              y: arr.map(d => d.value),
+              error_y: {
+                type: 'data',
+                array: arr.map(d => d.std),
+                visible: true
+              },
+              name: lang,
+              type: 'bar'
+            };
+          });
+
+          // subtitle with ↑/↓ as before
+          const lowerIsBetter = ['MCD', 'FAD', 'MSD'];
+          const icon = lowerIsBetter.includes(metricVal) ? '↓' : '↑';
+          const verb = lowerIsBetter.includes(metricVal)
+            ? 'lower is better'
+            : 'higher is better';
+
+          layout = {
+            barmode: 'group',
+            title: {
+              text: `${langVal} – ${metricVal}<br>` +
+                `<span style="font-size:.8em; color:var(--muted)">` +
+                `${icon} ${verb}` +
+                `</span>`,
+              x: 0.5
+            },
+            xaxis: { title: 'Model' }
+          };
+        }
+
+        // choose log vs linear
+        const allYs = traces.flatMap(t => t.y);
+        const maxY = Math.max(...allYs, 0);
+        layout.yaxis = {
+          title: metricVal === 'All' ? 'Value' : metricVal,
+          type: maxY > 10 ? 'log' : 'linear'
+        };
+
+        Plotly.react('metrics-chart', traces, layout);
+      }
+
+      // theme toggle
+      function toggleTheme() {
+        const root = document.documentElement;
+        const next = root.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+        if (next) root.setAttribute('data-theme', next);
+        else root.removeAttribute('data-theme');
+        localStorage.setItem('theme', next);
+      }
+      (function () {
+        if (localStorage.getItem('theme') === 'dark')
+          document.documentElement.setAttribute('data-theme', 'dark');
+      })();
+    </script>
 
     <section id="contact">
       <h2>Contact</h2>
-      <p>
-        For questions, email the maintainer at <code>202418024@dau.ac.in</code>
-      </p>
+      <p>For questions, email the maintainer at <code>202418024@dau.ac.in</code></p>
     </section>
   </main>
 
@@ -714,22 +612,7 @@
   </footer>
 
   <script>
-    // Year auto-fill
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Theme toggle
-    function toggleTheme() {
-      const root = document.documentElement;
-      const current = root.getAttribute('data-theme');
-      const next = current === 'dark' ? '' : 'dark';
-      if (next) { root.setAttribute('data-theme', next); }
-      else { root.removeAttribute('data-theme'); }
-      localStorage.setItem('theme', next);
-    }
-    (function () {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-    })();
   </script>
 </body>
 
