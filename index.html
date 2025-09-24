@@ -191,6 +191,7 @@
 
   <header>
     <nav>
+      <a href="#authors">Authors</a>
       <a href="#about">About</a>
       <a href="#models">Models</a>
       <a href="#demos">Audio Demos</a>
@@ -203,9 +204,18 @@
   <div class="hero">
     <h1>LaghuVani</h1>
     <p>Understanding and Mitigating the Tradeoff between Compactness and Quality in Bengali and Maithili</p>
+    <p><em>Accepted at <strong>PReMI 2025 - IIT Delhi</strong></em></p>
   </div>
 
   <main>
+    <section id="authors">
+      <h2>Authors</h2>
+      <ul>
+        <li><strong>Kaustubh S. Wade</strong> — Speech Research Lab, Dhirubhai Ambani University (formerly DA-IICT), Gandhinagar, India</li>
+        <li><strong>Ravindrakumar M. Purohit</strong> — Speech Research Lab, Dhirubhai Ambani University (formerly DA-IICT), Gandhinagar, India</li>
+        <li><strong>Dr. Hemant A. Patil</strong> — Speech Research Lab, Dhirubhai Ambani University (formerly DA-IICT), Gandhinagar, India</li>
+      </ul>
+    </section>
     <section id="about">
       <h2>About</h2>
       <p>LaghuVani is a family of five ultra-compact neural vocoders (6M, 1M, 0.5M, 0.1M, 0.02M) created by
@@ -226,8 +236,8 @@
         <thead>
           <tr>
             <th>Model</th>
-            <th>Params (M)</th>
-            <th>Config</th>
+            <th>Parameters (Million)</th>
+            <th>Configuration file</th>
             <th>Checkpoint (Bengali)</th>
             <th>Checkpoint (Maithili)</th>
           </tr>
@@ -243,35 +253,35 @@
           <tr>
             <td>LaghuVani-V1</td>
             <td>6.0</td>
-            <td><a href="assets/configs/config_6M.json">JSON</a></td>
+            <td><a href="assets/configs/config_6M.json">Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_6M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_mai_6M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>LaghuVani-V2</td>
             <td>1.0</td>
-            <td><a href="assets/configs/config_1M.json">JSON</a></td>
+            <td><a href="assets/configs/config_1M.json">Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_1M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_mai_1M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>LaghuVani-V3</td>
             <td>0.5</td>
-            <td><a href="assets/configs/config_0_5M.json">JSON</a></td>
+            <td><a href="assets/configs/config_0_5M.json">Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_0_5M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_mai_0_5M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>LaghuVani-V4</td>
             <td>0.1</td>
-            <td><a href="assets/configs/config_0_1M.json">JSON</a></td>
+            <td><a href="assets/configs/config_0_1M.json">Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_0_1M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_mai_0_1M.pt" download>Download</a></td>
           </tr>
           <tr>
             <td>LaghuVani-V5</td>
             <td>0.02</td>
-            <td><a href="assets/configs/config_0_02M.json">JSON</a></td>
+            <td><a href="assets/configs/config_0_02M.json">Download</a></td>
             <td><a href="assets/ckpts/checkpoint_ben_0_02M.pt" download>Download</a></td>
             <td><a href="assets/ckpts/checkpoint_mai_0_02M.pt" download>Download</a></td>
           </tr>
@@ -405,6 +415,18 @@
     <script>
       const metricsOrder = ['MOS', 'NISQA', 'PESQ', 'STOI', 'SNR', 'MCD', 'FAD', 'PCC', 'MSD'];
 
+      const arrowMap = {
+        MOS: '↑',
+        NISQA: '↑',
+        PESQ: '↑',
+        STOI: '↑',
+        SNR: '↑',
+        MCD: '↓',
+        FAD: '↓',
+        PCC: '↑',
+        MSD: '↓'
+      };
+
       function buildTable(lang, data) {
         const tbl = document.createElement('table');
         tbl.innerHTML = `
@@ -412,7 +434,7 @@
       <thead>
         <tr>
           <th>Model</th>
-          ${metricsOrder.map(m => `<th>${m}&nbsp;↑</th>`).join('')}
+          ${metricsOrder.map(m => `<th>${m}&nbsp;${arrowMap[m]}</th>`).join('')}
         </tr>
       </thead>
       <tbody>
@@ -460,7 +482,7 @@
         <label>
           Language:
           <select id="lang-select">
-            <option>Both</option>
+            <option>Both languages</option>
             <option>Bengali</option>
             <option>Maithili</option>
           </select>
@@ -476,134 +498,211 @@
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-      let globalData;
-      const metrics = ['MOS', 'NISQA', 'PESQ', 'STOI', 'SNR', 'MCD', 'FAD', 'PCC', 'MSD'];
+  let globalData;
 
-      // after JSON loads, populate the Metric <select> & draw
-      fetch('assets/data/metrics.json')
-        .then(r => r.json())
-        .then(dataStore => {
-          globalData = dataStore;
-          const msel = document.getElementById('metric-select');
+  // Single source of truth for metrics: key (JSON), label (UI), direction (↑/↓)
+  const metricsMeta = [
+    { key: 'MOS',   label: 'Mean Opinion Score',                         dir: 'up'   },
+    { key: 'NISQA', label: 'Non-Intrusive Speech Quality Assessment',    dir: 'up'   },
+    { key: 'PESQ',  label: 'Perceptual Evaluation of Speech Quality',    dir: 'up'   },
+    { key: 'STOI',  label: 'Short-Time Objective Intelligibility',       dir: 'up'   },
+    { key: 'SNR',   label: 'Signal-to-Noise Ratio',                      dir: 'up'   }, // [dB]
+    { key: 'MCD',   label: 'Mel-Cepstral Distortion',                    dir: 'down' }, // [dB]
+    { key: 'FAD',   label: 'Fréchet Audio Distance',                     dir: 'down' },
+    { key: 'PCC',   label: 'Pearson Correlation Coefficient',            dir: 'up'   },
+    { key: 'MSD',   label: 'Multi-Scale Discriminator',                  dir: 'down' }
+  ];
 
-          // helper to rebuild metric-options based on language
-          function rebuildMetricsOptions(langVal) {
-            msel.innerHTML = '';
-            if (langVal !== 'Both') {
-              msel.add(new Option('All'));
-            }
-            metrics.forEach(m => msel.add(new Option(m)));
-          }
+  // Fast lookups
+  const labelToKey = Object.fromEntries(metricsMeta.map(m => [m.label, m.key]));
+  const keyToMeta  = Object.fromEntries(metricsMeta.map(m => [m.key, m]));
 
-          // initial build
-          rebuildMetricsOptions('Both');
+  // Populate UI from meta
+  const metricLabels = metricsMeta.map(m => m.label);
 
-          // wire up both selects
-          document.getElementById('lang-select').onchange = function () {
-            rebuildMetricsOptions(this.value);
-            updateChart();
-          };
-          msel.onchange = updateChart;
+  // after JSON loads, populate Metric <select> & draw
+  fetch('assets/data/metrics.json')
+    .then(r => r.json())
+    .then(dataStore => {
+      globalData = dataStore;
+      const msel = document.getElementById('metric-select');
 
-          // initial chart draw
-          updateChart();
-        })
-        .catch(console.error);
-
-      function updateChart() {
-        const langVal = document.getElementById('lang-select').value;
-        const metricVal = document.getElementById('metric-select').value;
-
-        // choose which languages to plot
-        const langs = (langVal === 'Both') ? ['Bengali', 'Maithili'] : [langVal];
-
-        let traces, layout;
-        if (metricVal === 'All') {
-          // one trace per metric (single language only)
-          traces = metrics.map(metric => {
-            const arr = globalData[langs[0]][metric];
-            return {
-              x: arr.map(d => d.model),
-              y: arr.map(d => d.value),
-              error_y: {
-                type: 'data',
-                array: arr.map(d => d.std),
-                visible: true
-              },
-              name: metric,
-              type: 'bar'
-            };
-          });
-          layout = {
-            barmode: 'group',
-            title: { text: `${langs[0]} – All Metrics`, x: 0.5 },
-            xaxis: { title: 'Model' }
-          };
-        } else {
-          // one trace per language for a single metric
-          traces = langs.map(lang => {
-            const arr = globalData[lang][metricVal];
-            return {
-              x: arr.map(d => d.model),
-              y: arr.map(d => d.value),
-              error_y: {
-                type: 'data',
-                array: arr.map(d => d.std),
-                visible: true
-              },
-              name: lang,
-              type: 'bar'
-            };
-          });
-
-          // subtitle with ↑/↓ as before
-          const lowerIsBetter = ['MCD', 'FAD', 'MSD'];
-          const icon = lowerIsBetter.includes(metricVal) ? '↓' : '↑';
-          const verb = lowerIsBetter.includes(metricVal)
-            ? 'lower is better'
-            : 'higher is better';
-
-          layout = {
-            barmode: 'group',
-            title: {
-              text: `${langVal} – ${metricVal}<br>` +
-                `<span style="font-size:.8em; color:var(--muted)">` +
-                `${icon} ${verb}` +
-                `</span>`,
-              x: 0.5
-            },
-            xaxis: { title: 'Model' }
-          };
+      function rebuildMetricsOptions(langVal) {
+        msel.innerHTML = '';
+        // Only expose "All" in single-language mode
+        if (langVal === 'Bengali' || langVal === 'Maithili') {
+          msel.add(new Option('All', 'All'));
         }
-
-        // choose log vs linear
-        const allYs = traces.flatMap(t => t.y);
-        const maxY = Math.max(...allYs, 0);
-        layout.yaxis = {
-          title: metricVal === 'All' ? 'Value' : metricVal,
-          type: maxY > 10 ? 'log' : 'linear'
-        };
-
-        Plotly.react('metrics-chart', traces, layout);
+        metricLabels.forEach(lbl => msel.add(new Option(lbl, lbl)));
+        msel.selectedIndex = 0; // reset selection for clarity
       }
 
-      // theme toggle
-      function toggleTheme() {
-        const root = document.documentElement;
-        const next = root.getAttribute('data-theme') === 'dark' ? '' : 'dark';
-        if (next) root.setAttribute('data-theme', next);
-        else root.removeAttribute('data-theme');
-        localStorage.setItem('theme', next);
-      }
-      (function () {
-        if (localStorage.getItem('theme') === 'dark')
-          document.documentElement.setAttribute('data-theme', 'dark');
-      })();
-    </script>
+      // initial build for "Both languages"
+      rebuildMetricsOptions('Both languages');
+
+      // wire up both selects
+      document.getElementById('lang-select').onchange = function () {
+        rebuildMetricsOptions(this.value);
+        updateChart();
+      };
+      msel.onchange = updateChart;
+
+      // initial chart draw
+      updateChart();
+    })
+    .catch(console.error);
+
+  // function updateChart() {
+  //   const langVal   = document.getElementById('lang-select').value;
+  //   const metricVal = document.getElementById('metric-select').value;
+
+  //   // choose which languages to plot
+  //   const langs = (langVal === 'Both languages') ? ['Bengali', 'Maithili'] : [langVal];
+
+  //   let traces = [];
+  //   let layout = { barmode: 'group', xaxis: { title: 'Model' } };
+
+  //   if (metricVal === 'All') {
+  //     // One trace per metric (single language only)
+  //     const lang = langs[0];
+  //     traces = metricsMeta.map(meta => {
+  //       const arr = (globalData?.[lang]?.[meta.key]) || [];
+  //       return {
+  //         x: arr.map(d => d.model),
+  //         y: arr.map(d => d.value),
+  //         error_y: {
+  //           type: 'data',
+  //           array: arr.map(d => d.std ?? 0),
+  //           visible: true
+  //         },
+  //         name: meta.key, // short tag in legend
+  //         type: 'bar'
+  //       };
+  //     });
+  //     layout.title = { text: `${langs[0]} – All Metrics`, x: 0.5 };
+  //     layout.yaxis = { title: 'Value', type: 'linear' };
+  //   } else {
+  //     // One trace per language for a single metric (selected by label)
+  //     const metricKey = labelToKey[metricVal];
+  //     const meta      = keyToMeta[metricKey];
+
+  //     traces = langs.map(lang => {
+  //       const arr = (globalData?.[lang]?.[metricKey]) || [];
+  //       return {
+  //         x: arr.map(d => d.model),
+  //         y: arr.map(d => d.value),
+  //         error_y: {
+  //           type: 'data',
+  //           array: arr.map(d => d.std ?? 0),
+  //           visible: true
+  //         },
+  //         name: lang,
+  //         type: 'bar'
+  //       };
+  //     });
+
+  //     const icon = (meta.dir === 'down') ? '↓' : '↑';
+  //     const verb = (meta.dir === 'down') ? 'lower is better' : 'higher is better';
+
+  //     layout.title = {
+  //       text:
+  //         `${langVal} – ${metricVal}<br>` +
+  //         `<span style="font-size:.8em; color:var(--muted)">${icon}&nbsp;${verb}</span>`,
+  //       x: 0.5
+  //     };
+
+  //     // Axis title stays human-friendly (label), keep linear for comparability
+  //     // layout.yaxis = { title: metricVal, type: 'linear' };
+  //     // Use log scale for FAD and All; linear otherwise
+  //     const isFAD = (metricKey === 'FAD' || metricKey === 'All' );
+  //     layout.yaxis = { title: metricVal, type: isFAD ? 'log' : 'linear' };
+  //   }
+
+  //   // Render
+  //   Plotly.react('metrics-chart', traces, layout);
+  // }
+
+  function updateChart() {
+  const langVal   = document.getElementById('lang-select').value;
+  const metricVal = document.getElementById('metric-select').value;
+
+  // NEW: flags to control axis scaling
+  const isAll = (metricVal === 'All');
+  const isFAD = !isAll && labelToKey[metricVal] === 'FAD';
+
+  // choose which languages to plot
+  const langs = (langVal === 'Both languages') ? ['Bengali', 'Maithili'] : [langVal];
+
+  let traces = [];
+  let layout = { barmode: 'group', xaxis: { title: 'Model' } };
+
+  if (isAll) {
+    // One trace per metric (single language only)
+    const lang = langs[0];
+    traces = metricsMeta.map(meta => {
+      const arr = (globalData?.[lang]?.[meta.key]) || [];
+      return {
+        x: arr.map(d => d.model),
+        y: arr.map(d => d.value),
+        error_y: { type: 'data', array: arr.map(d => d.std ?? 0), visible: true },
+        name: meta.key,
+        type: 'bar'
+      };
+    });
+    layout.title = { text: `${langs[0]} – All Metrics`, x: 0.5 };
+    // CHANGE: use log scale for "All"
+    layout.yaxis = { title: 'Value', type: 'log' };
+  } else {
+    // One trace per language for a single metric (selected by label)
+    const metricKey = labelToKey[metricVal];
+    const meta      = keyToMeta[metricKey];
+
+    traces = langs.map(lang => {
+      const arr = (globalData?.[lang]?.[metricKey]) || [];
+      return {
+        x: arr.map(d => d.model),
+        y: arr.map(d => d.value),
+        error_y: { type: 'data', array: arr.map(d => d.std ?? 0), visible: true },
+        name: lang,
+        type: 'bar'
+      };
+    });
+
+    const icon = (meta.dir === 'down') ? '↓' : '↑';
+    const verb = (meta.dir === 'down') ? 'lower is better' : 'higher is better';
+
+    layout.title = {
+      text: `${langVal} – ${metricVal}<br><span style="font-size:.8em; color:var(--muted)">${icon}&nbsp;${verb}</span>`,
+      x: 0.5
+    };
+    // CHANGE: use log scale when single metric is FAD
+    layout.yaxis = { title: metricVal, type: isFAD ? 'log' : 'linear' };
+  }
+
+  Plotly.react('metrics-chart', traces, layout);
+}
+
+
+  // theme toggle (unchanged)
+  function toggleTheme() {
+    const root = document.documentElement;
+    const next = root.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+    if (next) root.setAttribute('data-theme', next);
+    else root.removeAttribute('data-theme');
+    localStorage.setItem('theme', next);
+  }
+  (function () {
+    if (localStorage.getItem('theme') === 'dark')
+      document.documentElement.setAttribute('data-theme', 'dark');
+  })();
+</script>
+
 
     <section id="contact">
       <h2>Contact</h2>
-      <p>For questions, email the maintainer at <code>202418024@dau.ac.in</code></p>
+      <p>For questions, email the maintainer at 
+        <a href="mailto:202418024@dau.ac.in">202418024@dau.ac.in</a>
+      </p>
     </section>
   </main>
 
