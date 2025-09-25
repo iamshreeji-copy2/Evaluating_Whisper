@@ -1,6 +1,10 @@
 {
   "Maithili": {
     "MOS": [
+      { "model": "VocGAN",  "value": 4.202, "std": 0.081 },
+      { "model": "UnivNet", "value": 3.930, "std": 0.090 },
+      { "model": "HiFiGAN", "value": 4.100, "std": 0.050 },
+      { "model": "BigVGAN", "value": 4.110, "std": 0.090 },
       { "model": "LaghuVani-V1", "value": 2.800, "std": 0.768 },
       { "model": "LaghuVani-V2", "value": 2.050, "std": 0.605 },
       { "model": "LaghuVani-V3", "value": 1.250, "std": 0.444 },
@@ -98,6 +102,10 @@
   },
   "Bengali": {
     "MOS": [
+      { "model": "VocGAN",  "value": 4.202, "std": 0.081 },
+      { "model": "UnivNet", "value": 3.930, "std": 0.090 },
+      { "model": "HiFiGAN", "value": 4.100, "std": 0.050 },
+      { "model": "BigVGAN", "value": 4.110, "std": 0.090 },
       { "model": "LaghuVani-V1", "value": 4.140, "std": 1.069 },
       { "model": "LaghuVani-V2", "value": 3.180, "std": 1.190 },
       { "model": "LaghuVani-V3", "value": 1.760, "std": 0.894 },

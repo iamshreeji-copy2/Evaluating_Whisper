@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Compact vocoder research demo page" />
   <title>LaghuVani</title>
+  <link rel="icon" type="image/x-icon" href="assets\icon\music.png">
   <style>
     :root {
       --bg: #ffffff;
@@ -552,76 +553,6 @@
     })
     .catch(console.error);
 
-  // function updateChart() {
-  //   const langVal   = document.getElementById('lang-select').value;
-  //   const metricVal = document.getElementById('metric-select').value;
-
-  //   // choose which languages to plot
-  //   const langs = (langVal === 'Both languages') ? ['Bengali', 'Maithili'] : [langVal];
-
-  //   let traces = [];
-  //   let layout = { barmode: 'group', xaxis: { title: 'Model' } };
-
-  //   if (metricVal === 'All') {
-  //     // One trace per metric (single language only)
-  //     const lang = langs[0];
-  //     traces = metricsMeta.map(meta => {
-  //       const arr = (globalData?.[lang]?.[meta.key]) || [];
-  //       return {
-  //         x: arr.map(d => d.model),
-  //         y: arr.map(d => d.value),
-  //         error_y: {
-  //           type: 'data',
-  //           array: arr.map(d => d.std ?? 0),
-  //           visible: true
-  //         },
-  //         name: meta.key, // short tag in legend
-  //         type: 'bar'
-  //       };
-  //     });
-  //     layout.title = { text: `${langs[0]} – All Metrics`, x: 0.5 };
-  //     layout.yaxis = { title: 'Value', type: 'linear' };
-  //   } else {
-  //     // One trace per language for a single metric (selected by label)
-  //     const metricKey = labelToKey[metricVal];
-  //     const meta      = keyToMeta[metricKey];
-
-  //     traces = langs.map(lang => {
-  //       const arr = (globalData?.[lang]?.[metricKey]) || [];
-  //       return {
-  //         x: arr.map(d => d.model),
-  //         y: arr.map(d => d.value),
-  //         error_y: {
-  //           type: 'data',
-  //           array: arr.map(d => d.std ?? 0),
-  //           visible: true
-  //         },
-  //         name: lang,
-  //         type: 'bar'
-  //       };
-  //     });
-
-  //     const icon = (meta.dir === 'down') ? '↓' : '↑';
-  //     const verb = (meta.dir === 'down') ? 'lower is better' : 'higher is better';
-
-  //     layout.title = {
-  //       text:
-  //         `${langVal} – ${metricVal}<br>` +
-  //         `<span style="font-size:.8em; color:var(--muted)">${icon}&nbsp;${verb}</span>`,
-  //       x: 0.5
-  //     };
-
-  //     // Axis title stays human-friendly (label), keep linear for comparability
-  //     // layout.yaxis = { title: metricVal, type: 'linear' };
-  //     // Use log scale for FAD and All; linear otherwise
-  //     const isFAD = (metricKey === 'FAD' || metricKey === 'All' );
-  //     layout.yaxis = { title: metricVal, type: isFAD ? 'log' : 'linear' };
-  //   }
-
-  //   // Render
-  //   Plotly.react('metrics-chart', traces, layout);
-  // }
-
   function updateChart() {
   const langVal   = document.getElementById('lang-select').value;
   const metricVal = document.getElementById('metric-select').value;
@@ -700,8 +631,8 @@
 
     <section id="contact">
       <h2>Contact</h2>
-      <p>For questions, email the maintainer at 
-        <a href="mailto:202418024@dau.ac.in">202418024@dau.ac.in</a>
+      <p>For questions, <a href="mailto:202321002@dau.ac.in,202418024@dau.ac.in,hemant_patil@dau.ac.in?subject=Meeting&body=Let's discuss the project.">email the team</a>.
+
       </p>
     </section>
   </main>
