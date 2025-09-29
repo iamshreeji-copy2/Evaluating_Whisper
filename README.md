@@ -1,2 +1,2 @@
-# Whisper-Based Multilingual ASR For Indic
-Languages
+# Whisper-Based Multilingual ASR For Indic Languages
+
