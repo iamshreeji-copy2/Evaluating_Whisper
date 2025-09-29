@@ -471,53 +471,119 @@
 
 
     <!-- Interactive Plotly Graph -->
-    <section id="graphs">
-      <h2>Interactive Metrics</h2>
+<section id="metrics">
+  <h2>Metrics Snapshot</h2>
+  <p>Objective metrics (↓ lower is better).</p>
+</section>
+<script>
+  // Updated metrics and their directions
+  const metricsOrder = ['WER', 'CER', 'PER'];
+  const arrowMap = {
+    WER: '↓',
+    CER: '↓',
+    PER: '↓'
+  };
 
-      <div class="chart-controls">
-        <label>
-          Language:
-          <select id="lang-select">
-            <option>Both languages</option>
-            <option>Bengali</option>
-            <option>Maithili</option>
-          </select>
-        </label>
-        <label>
-          Metric:
-          <select id="metric-select"></select>
-        </label>
-      </div>
+  function buildTable(lang, data) {
+    const tbl = document.createElement('table');
+    tbl.innerHTML = `
+      <caption><h3>${lang}</h3></caption>
+      <thead>
+        <tr>
+          <th>Model</th>
+          ${metricsOrder.map(m => `<th>${m}&nbsp;${arrowMap[m]}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${Array.from(new Set(
+          metricsOrder.flatMap(metric =>
+            data[lang][metric].map(d => d.model)
+          )
+        )).map(model => {
+          return `<tr>
+              <td>${model}</td>
+              ${metricsOrder.map(metric => {
+            const found = data[lang][metric].find(d => d.model === model);
+            if (!found) return `<td>—</td>`;
+            const mean = found.value.toFixed(3);
+            const std = (found.std != null)
+              ? ` ± ${found.std.toFixed(3)}`
+              : '';
+            return `<td>${mean}${std}</td>`;
+          }).join('')}
+            </tr>`;
+        }).join('')}
+      </tbody>`;
+    return tbl;
+  }
 
-      <div id="metrics-chart" style="height:400px;"></div>
-    </section>
+  fetch('assets/data/ASR_whisper.json')
+    .then(r => r.json())
+    .then(data => {
+      const sec = document.getElementById('metrics');
+      sec.querySelectorAll('table').forEach(t => t.remove());
+      // List of all languages in your JSON
+      const languages = [
+        'Bengali', 'Gujarati', 'Kannada', 'Malayalam',
+        'Nepali', 'Punjabi', 'Sanskrit', 'Tamil', 'Telugu',
+        'Dogri', 'Mizo', 'Manipuri', 'Rajasthani'
+      ];
+      languages.forEach(lang => {
+        if (data[lang]) {
+          sec.appendChild(buildTable(lang, data));
+        }
+      });
+    })
+    .catch(console.error);
+</script>
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script>
+<!-- Interactive Plotly Graph -->
+<section id="graphs">
+  <h2>Interactive Metrics</h2>
+  <div class="chart-controls">
+    <label>
+      Language:
+      <select id="lang-select">
+        <option>All languages</option>
+        <option>Bengali</option>
+        <option>Gujarati</option>
+        <option>Kannada</option>
+        <option>Malayalam</option>
+        <option>Nepali</option>
+        <option>Punjabi</option>
+        <option>Sanskrit</option>
+        <option>Tamil</option>
+        <option>Telugu</option>
+        <option>Dogri</option>
+        <option>Mizo</option>
+        <option>Manipuri</option>
+        <option>Rajasthani</option>
+      </select>
+    </label>
+    <label>
+      Metric:
+      <select id="metric-select"></select>
+    </label>
+  </div>
+  <div id="metrics-chart" style="height:400px;"></div>
+</section>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
   let globalData;
 
-  // Single source of truth for metrics: key (JSON), label (UI), direction (↑/↓)
+  // Updated metrics metadata
   const metricsMeta = [
-    { key: 'MOS',   label: 'Mean Opinion Score',                         dir: 'up'   },
-    { key: 'NISQA', label: 'Non-Intrusive Speech Quality Assessment',    dir: 'up'   },
-    { key: 'PESQ',  label: 'Perceptual Evaluation of Speech Quality',    dir: 'up'   },
-    { key: 'STOI',  label: 'Short-Time Objective Intelligibility',       dir: 'up'   },
-    { key: 'SNR',   label: 'Signal-to-Noise Ratio',                      dir: 'up'   }, // [dB]
-    { key: 'MCD',   label: 'Mel-Cepstral Distortion',                    dir: 'down' }, // [dB]
-    { key: 'FAD',   label: 'Fréchet Audio Distance',                     dir: 'down' },
-    { key: 'PCC',   label: 'Pearson Correlation Coefficient',            dir: 'up'   },
-    { key: 'MSD',   label: 'Multi-Scale Discriminator',                  dir: 'down' }
+    { key: 'WER', label: 'Word Error Rate', dir: 'down' },
+    { key: 'CER', label: 'Character Error Rate', dir: 'down' },
+    { key: 'PER', label: 'Phoneme Error Rate', dir: 'down' }
   ];
 
   // Fast lookups
   const labelToKey = Object.fromEntries(metricsMeta.map(m => [m.label, m.key]));
-  const keyToMeta  = Object.fromEntries(metricsMeta.map(m => [m.key, m]));
-
-  // Populate UI from meta
+  const keyToMeta = Object.fromEntries(metricsMeta.map(m => [m.key, m]));
   const metricLabels = metricsMeta.map(m => m.label);
 
-  // after JSON loads, populate Metric <select> & draw
-  fetch('assets/data/metrics.json')
+  fetch('assets/data/ASR_whisper.json')
     .then(r => r.json())
     .then(dataStore => {
       globalData = dataStore;
@@ -525,65 +591,38 @@
 
       function rebuildMetricsOptions(langVal) {
         msel.innerHTML = '';
-        // Only expose "All" in single-language mode
-        if (langVal === 'Bengali' || langVal === 'Maithili') {
-          msel.add(new Option('All', 'All'));
-        }
         metricLabels.forEach(lbl => msel.add(new Option(lbl, lbl)));
-        msel.selectedIndex = 0; // reset selection for clarity
+        msel.selectedIndex = 0;
       }
 
-      // initial build for "Both languages"
-      rebuildMetricsOptions('Both languages');
+      rebuildMetricsOptions('All languages');
 
-      // wire up both selects
-      document.getElementById('lang-select').onchange = function () {
-        rebuildMetricsOptions(this.value);
+      document.getElementById('lang-select').onchange = function() {
         updateChart();
       };
+
       msel.onchange = updateChart;
 
-      // initial chart draw
       updateChart();
     })
     .catch(console.error);
 
   function updateChart() {
-  const langVal   = document.getElementById('lang-select').value;
-  const metricVal = document.getElementById('metric-select').value;
+    const langVal = document.getElementById('lang-select').value;
+    const metricVal = document.getElementById('metric-select').value;
 
-  // NEW: flags to control axis scaling
-  const isAll = (metricVal === 'All');
-  const isFAD = !isAll && labelToKey[metricVal] === 'FAD';
+    const langs = langVal === 'All languages'
+      ? [
+        'Bengali', 'Gujarati', 'Kannada', 'Malayalam',
+        'Nepali', 'Punjabi', 'Sanskrit', 'Tamil', 'Telugu',
+        'Dogri', 'Mizo', 'Manipuri', 'Rajasthani'
+      ]
+      : [langVal];
 
-  // choose which languages to plot
-  const langs = (langVal === 'Both languages') ? ['Bengali', 'Maithili'] : [langVal];
-
-  let traces = [];
-  let layout = { barmode: 'group', xaxis: { title: 'Model' } };
-
-  if (isAll) {
-    // One trace per metric (single language only)
-    const lang = langs[0];
-    traces = metricsMeta.map(meta => {
-      const arr = (globalData?.[lang]?.[meta.key]) || [];
-      return {
-        x: arr.map(d => d.model),
-        y: arr.map(d => d.value),
-        error_y: { type: 'data', array: arr.map(d => d.std ?? 0), visible: true },
-        name: meta.key,
-        type: 'bar'
-      };
-    });
-    layout.title = { text: `${langs[0]} – All Metrics`, x: 0.5 };
-    // CHANGE: use log scale for "All"
-    layout.yaxis = { title: 'Value', type: 'log' };
-  } else {
-    // One trace per language for a single metric (selected by label)
     const metricKey = labelToKey[metricVal];
-    const meta      = keyToMeta[metricKey];
+    const meta = keyToMeta[metricKey];
 
-    traces = langs.map(lang => {
+    let traces = langs.map(lang => {
       const arr = (globalData?.[lang]?.[metricKey]) || [];
       return {
         x: arr.map(d => d.model),
@@ -597,19 +636,20 @@
     const icon = (meta.dir === 'down') ? '↓' : '↑';
     const verb = (meta.dir === 'down') ? 'lower is better' : 'higher is better';
 
-    layout.title = {
-      text: `${langVal} – ${metricVal}<br><span style="font-size:.8em; color:var(--muted)">${icon}&nbsp;${verb}</span>`,
-      x: 0.5
+    const layout = {
+      barmode: 'group',
+      xaxis: { title: 'Model' },
+      yaxis: { title: metricVal },
+      title: {
+        text: `${langVal} – ${metricVal}<br><span style="font-size:.8em; color:var(--muted)">${icon}&nbsp;${verb}</span>`,
+        x: 0.5
+      }
     };
-    // CHANGE: use log scale when single metric is FAD
-    layout.yaxis = { title: metricVal, type: isFAD ? 'log' : 'linear' };
+
+    Plotly.react('metrics-chart', traces, layout);
   }
 
-  Plotly.react('metrics-chart', traces, layout);
-}
-
-
-  // theme toggle (unchanged)
+  // Theme toggle (unchanged)
   function toggleTheme() {
     const root = document.documentElement;
     const next = root.getAttribute('data-theme') === 'dark' ? '' : 'dark';
@@ -617,11 +657,13 @@
     else root.removeAttribute('data-theme');
     localStorage.setItem('theme', next);
   }
-  (function () {
+
+  (function() {
     if (localStorage.getItem('theme') === 'dark')
       document.documentElement.setAttribute('data-theme', 'dark');
   })();
 </script>
+
 
 
     <section id="contact">
@@ -643,4 +685,5 @@
 
 
 </html>
+
 
