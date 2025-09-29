@@ -403,80 +403,12 @@
     </section>
 
     <!-- Dynamic Metrics Table (with ± std) -->
-    <section id="metrics">
-      <h2>Metrics Snapshot</h2>
-      <p>Objective metrics (↑ higher is better, ↓ lower is better). MOS is from listening tests.</p>
-    </section>
-
-    <script>
-      const metricsOrder = ['MOS', 'NISQA', 'PESQ', 'STOI', 'SNR', 'MCD', 'FAD', 'PCC', 'MSD'];
-
-      const arrowMap = {
-        MOS: '↑',
-        NISQA: '↑',
-        PESQ: '↑',
-        STOI: '↑',
-        SNR: '↑',
-        MCD: '↓',
-        FAD: '↓',
-        PCC: '↑',
-        MSD: '↓'
-      };
-
-      function buildTable(lang, data) {
-        const tbl = document.createElement('table');
-        tbl.innerHTML = `
-      <caption><h3>${lang}</h3></caption>
-      <thead>
-        <tr>
-          <th>Model</th>
-          ${metricsOrder.map(m => `<th>${m}&nbsp;${arrowMap[m]}</th>`).join('')}
-        </tr>
-      </thead>
-      <tbody>
-        ${Array.from(new Set(
-          metricsOrder.flatMap(metric =>
-            data[lang][metric].map(d => d.model)
-          )
-        )).map(model => {
-          return `<tr>
-              <td>${model}</td>
-              ${metricsOrder.map(metric => {
-            const found = data[lang][metric].find(d => d.model === model);
-            if (!found) return `<td>—</td>`;
-            // round to 3 decimal places
-            const mean = found.value.toFixed(3);
-            const std = (found.std != null)
-              ? ` ± ${found.std.toFixed(3)}`
-              : '';
-            return `<td>${mean}${std}</td>`;
-          }).join('')}
-            </tr>`;
-        }).join('')}
-      </tbody>`;
-        return tbl;
-      }
-
-      fetch('assets/data/metrics.json')
-        .then(r => r.json())
-        .then(data => {
-          const sec = document.getElementById('metrics');
-          sec.querySelectorAll('table').forEach(t => t.remove());
-          ['Bengali', 'Maithili'].forEach(lang =>
-            sec.appendChild(buildTable(lang, data))
-          );
-        })
-        .catch(console.error);
-    </script>
-
-
-    <!-- Interactive Plotly Graph -->
-<section id="metrics">
+  <section id="metrics">
   <h2>Metrics Snapshot</h2>
-  <p>Objective metrics (↓ lower is better).</p>
+  <p>Objective metrics (↓ lower is better for all).</p>
 </section>
 <script>
-  // Updated metrics and their directions
+  // Updated metrics order and arrow map for WER, CER, PER
   const metricsOrder = ['WER', 'CER', 'PER'];
   const arrowMap = {
     WER: '↓',
@@ -503,14 +435,12 @@
           return `<tr>
               <td>${model}</td>
               ${metricsOrder.map(metric => {
-            const found = data[lang][metric].find(d => d.model === model);
-            if (!found) return `<td>—</td>`;
-            const mean = found.value.toFixed(3);
-            const std = (found.std != null)
-              ? ` ± ${found.std.toFixed(3)}`
-              : '';
-            return `<td>${mean}${std}</td>`;
-          }).join('')}
+                const found = data[lang][metric].find(d => d.model === model);
+                if (!found) return `<td>—</td>`;
+                const mean = found.value.toFixed(3);
+                const std = (found.std != null) ? ` ± ${found.std.toFixed(3)}` : '';
+                return `<td>${mean}${std}</td>`;
+              }).join('')}
             </tr>`;
         }).join('')}
       </tbody>`;
@@ -522,12 +452,8 @@
     .then(data => {
       const sec = document.getElementById('metrics');
       sec.querySelectorAll('table').forEach(t => t.remove());
-      // List of all languages in your JSON
-      const languages = [
-        'Bengali', 'Gujarati', 'Kannada', 'Malayalam',
-        'Nepali', 'Punjabi', 'Sanskrit', 'Tamil', 'Telugu',
-        'Dogri', 'Mizo', 'Manipuri', 'Rajasthani'
-      ];
+      // Updated list of languages
+      const languages = ['Assamese', 'Bengali', 'Gujarati', 'Hindi', 'Kannada', 'Malayalam', 'Nepali', 'Punjabi', 'Sanskrit', 'Tamil', 'Telugu', 'Dogri', 'Maithili', 'Manipuri', 'Rajasthani'];
       languages.forEach(lang => {
         if (data[lang]) {
           sec.appendChild(buildTable(lang, data));
@@ -545,8 +471,10 @@
       Language:
       <select id="lang-select">
         <option>All languages</option>
+        <option>Assamese</option>
         <option>Bengali</option>
         <option>Gujarati</option>
+        <option>Hindi</option>
         <option>Kannada</option>
         <option>Malayalam</option>
         <option>Nepali</option>
@@ -555,7 +483,7 @@
         <option>Tamil</option>
         <option>Telugu</option>
         <option>Dogri</option>
-        <option>Mizo</option>
+        <option>Maithili</option>
         <option>Manipuri</option>
         <option>Rajasthani</option>
       </select>
@@ -570,14 +498,12 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
   let globalData;
-
-  // Updated metrics metadata
+  // Updated metrics meta for WER, CER, PER
   const metricsMeta = [
     { key: 'WER', label: 'Word Error Rate', dir: 'down' },
     { key: 'CER', label: 'Character Error Rate', dir: 'down' },
     { key: 'PER', label: 'Phoneme Error Rate', dir: 'down' }
   ];
-
   // Fast lookups
   const labelToKey = Object.fromEntries(metricsMeta.map(m => [m.label, m.key]));
   const keyToMeta = Object.fromEntries(metricsMeta.map(m => [m.key, m]));
@@ -602,7 +528,6 @@
       };
 
       msel.onchange = updateChart;
-
       updateChart();
     })
     .catch(console.error);
@@ -611,13 +536,10 @@
     const langVal = document.getElementById('lang-select').value;
     const metricVal = document.getElementById('metric-select').value;
 
-    const langs = langVal === 'All languages'
-      ? [
-        'Bengali', 'Gujarati', 'Kannada', 'Malayalam',
-        'Nepali', 'Punjabi', 'Sanskrit', 'Tamil', 'Telugu',
-        'Dogri', 'Mizo', 'Manipuri', 'Rajasthani'
-      ]
-      : [langVal];
+    // Updated list of languages
+    const langs = (langVal === 'All languages') ?
+      ['Assamese', 'Bengali', 'Gujarati', 'Hindi', 'Kannada', 'Malayalam', 'Nepali', 'Punjabi', 'Sanskrit', 'Tamil', 'Telugu', 'Dogri', 'Maithili', 'Manipuri', 'Rajasthani'] :
+      [langVal];
 
     const metricKey = labelToKey[metricVal];
     const meta = keyToMeta[metricKey];
@@ -637,13 +559,13 @@
     const verb = (meta.dir === 'down') ? 'lower is better' : 'higher is better';
 
     const layout = {
-      barmode: 'group',
-      xaxis: { title: 'Model' },
-      yaxis: { title: metricVal },
       title: {
         text: `${langVal} – ${metricVal}<br><span style="font-size:.8em; color:var(--muted)">${icon}&nbsp;${verb}</span>`,
         x: 0.5
-      }
+      },
+      barmode: 'group',
+      xaxis: { title: 'Model' },
+      yaxis: { title: metricVal }
     };
 
     Plotly.react('metrics-chart', traces, layout);
@@ -685,5 +607,6 @@
 
 
 </html>
+
 
 
