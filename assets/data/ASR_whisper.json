@@ -1,0 +1,235 @@
+{
+  "Bengali": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 1.25, "std": null },
+      { "model": "Whisper (T)", "value": 1.14, "std": null },
+      { "model": "Whisper (L)", "value": 1.02, "std": null },
+      { "model": "IndicConformer", "value": 0.31, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.58, "std": null },
+      { "model": "Whisper (T)", "value": 0.52, "std": null },
+      { "model": "Whisper (L)", "value": 0.47, "std": null },
+      { "model": "IndicConformer", "value": 0.10, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.62, "std": null },
+      { "model": "Whisper (T)", "value": 0.56, "std": null },
+      { "model": "Whisper (L)", "value": 0.50, "std": null },
+      { "model": "IndicConformer", "value": 0.31, "std": null }
+    ]
+  },
+  "Gujarati": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.11, "std": null },
+      { "model": "Whisper (T)", "value": 1.07, "std": null },
+      { "model": "Whisper (L)", "value": 0.45, "std": null },
+      { "model": "IndicConformer", "value": 0.66, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.05, "std": null },
+      { "model": "Whisper (T)", "value": 0.49, "std": null },
+      { "model": "Whisper (L)", "value": 0.22, "std": null },
+      { "model": "IndicConformer", "value": 0.48, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.06, "std": null },
+      { "model": "Whisper (T)", "value": 0.52, "std": null },
+      { "model": "Whisper (L)", "value": 0.23, "std": null },
+      { "model": "IndicConformer", "value": 0.66, "std": null }
+    ]
+  },
+  "Kannada": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 1.03, "std": null },
+      { "model": "Whisper (T)", "value": 1.04, "std": null },
+      { "model": "Whisper (L)", "value": 0.94, "std": null },
+      { "model": "IndicConformer", "value": 0.26, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.48, "std": null },
+      { "model": "Whisper (T)", "value": 0.51, "std": null },
+      { "model": "Whisper (L)", "value": 0.42, "std": null },
+      { "model": "IndicConformer", "value": 0.07, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.50, "std": null },
+      { "model": "Whisper (T)", "value": 0.54, "std": null },
+      { "model": "Whisper (L)", "value": 0.44, "std": null },
+      { "model": "IndicConformer", "value": 0.26, "std": null }
+    ]
+  },
+  "Malayalam": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.48, "std": null },
+      { "model": "Whisper (T)", "value": 0.49, "std": null },
+      { "model": "Whisper (L)", "value": 0.36, "std": null },
+      { "model": "IndicConformer", "value": 0.25, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.23, "std": null },
+      { "model": "Whisper (T)", "value": 0.22, "std": null },
+      { "model": "Whisper (L)", "value": 0.18, "std": null },
+      { "model": "IndicConformer", "value": 0.07, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.26, "std": null },
+      { "model": "Whisper (T)", "value": 0.25, "std": null },
+      { "model": "Whisper (L)", "value": 0.20, "std": null },
+      { "model": "IndicConformer", "value": 0.25, "std": null }
+    ]
+  },
+  "Nepali": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 1.04, "std": null },
+      { "model": "Whisper (T)", "value": 1.03, "std": null },
+      { "model": "Whisper (L)", "value": 0.92, "std": null },
+      { "model": "IndicConformer", "value": 0.43, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.53, "std": null },
+      { "model": "Whisper (T)", "value": 0.49, "std": null },
+      { "model": "Whisper (L)", "value": 0.40, "std": null },
+      { "model": "IndicConformer", "value": 0.12, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.56, "std": null },
+      { "model": "Whisper (T)", "value": 0.52, "std": null },
+      { "model": "Whisper (L)", "value": 0.43, "std": null },
+      { "model": "IndicConformer", "value": 0.43, "std": null }
+    ]
+  },
+  "Punjabi": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.32, "std": null },
+      { "model": "Whisper (T)", "value": 0.29, "std": null },
+      { "model": "Whisper (L)", "value": 0.18, "std": null },
+      { "model": "IndicConformer", "value": 0.30, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.15, "std": null },
+      { "model": "Whisper (T)", "value": 0.13, "std": null },
+      { "model": "Whisper (L)", "value": 0.08, "std": null },
+      { "model": "IndicConformer", "value": 0.08, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.17, "std": null },
+      { "model": "Whisper (T)", "value": 0.14, "std": null },
+      { "model": "Whisper (L)", "value": 0.09, "std": null },
+      { "model": "IndicConformer", "value": 0.30, "std": null }
+    ]
+  },
+  "Sanskrit": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.15, "std": null },
+      { "model": "Whisper (T)", "value": 0.18, "std": null },
+      { "model": "Whisper (L)", "value": 0.10, "std": null },
+      { "model": "IndicConformer", "value": 0.28, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.07, "std": null },
+      { "model": "Whisper (T)", "value": 0.08, "std": null },
+      { "model": "Whisper (L)", "value": 0.04, "std": null },
+      { "model": "IndicConformer", "value": 0.10, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.08, "std": null },
+      { "model": "Whisper (T)", "value": 0.09, "std": null },
+      { "model": "Whisper (L)", "value": 0.05, "std": null },
+      { "model": "IndicConformer", "value": 0.28, "std": null }
+    ]
+  },
+  "Tamil": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.18, "std": null },
+      { "model": "Whisper (T)", "value": 0.19, "std": null },
+      { "model": "Whisper (L)", "value": 0.09, "std": null },
+      { "model": "IndicConformer", "value": 0.26, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.08, "std": null },
+      { "model": "Whisper (T)", "value": 0.08, "std": null },
+      { "model": "Whisper (L)", "value": 0.04, "std": null },
+      { "model": "IndicConformer", "value": 0.06, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.09, "std": null },
+      { "model": "Whisper (T)", "value": 0.09, "std": null },
+      { "model": "Whisper (L)", "value": 0.05, "std": null },
+      { "model": "IndicConformer", "value": 0.26, "std": null }
+    ]
+  },
+  "Telugu": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.60, "std": null },
+      { "model": "Whisper (T)", "value": 0.59, "std": null },
+      { "model": "Whisper (L)", "value": 0.48, "std": null },
+      { "model": "IndicConformer", "value": 0.31, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.29, "std": null },
+      { "model": "Whisper (T)", "value": 0.26, "std": null },
+      { "model": "Whisper (L)", "value": 0.21, "std": null },
+      { "model": "IndicConformer", "value": 0.07, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.32, "std": null },
+      { "model": "Whisper (T)", "value": 0.29, "std": null },
+      { "model": "Whisper (L)", "value": 0.23, "std": null },
+      { "model": "IndicConformer", "value": 0.31, "std": null }
+    ]
+  },
+  "Dogri": {
+    "WER": [
+      { "model": "Whisper (M)", "value": 0.28, "std": null },
+      { "model": "Whisper (T)", "value": 0.24, "std": null },
+      { "model": "Whisper (L)", "value": 0.18, "std": null },
+      { "model": "IndicConformer", "value": 0.28, "std": null }
+    ],
+    "CER": [
+      { "model": "Whisper (M)", "value": 0.12, "std": null },
+      { "model": "Whisper (T)", "value": 0.10, "std": null },
+      { "model": "Whisper (L)", "value": 0.08, "std": null },
+      { "model": "IndicConformer", "value": 0.06, "std": null }
+    ],
+    "PER": [
+      { "model": "Whisper (M)", "value": 0.14, "std": null },
+      { "model": "Whisper (T)", "value": 0.11, "std": null },
+      { "model": "Whisper (L)", "value": 0.09, "std": null },
+      { "model": "IndicConformer", "value": 0.28, "std": null }
+    ]
+  },
+  "Mizo": {
+    "WER": [
+      { "model": "IndicConformer", "value": 0.41, "std": null }
+    ],
+    "CER": [
+      { "model": "IndicConformer", "value": 0.16, "std": null }
+    ],
+    "PER": [
+      { "model": "IndicConformer", "value": 0.41, "std": null }
+    ]
+  },
+  "Manipuri": {
+    "WER": [
+      { "model": "IndicConformer", "value": 0.46, "std": null }
+    ],
+    "CER": [
+      { "model": "IndicConformer", "value": 0.13, "std": null }
+    ],
+    "PER": [
+      { "model": "IndicConformer", "value": 0.46, "std": null }
+    ]
+  },
+  "Rajasthani": {
+    "WER": [
+      { "model": "IndicConformer", "value": 1.01, "std": null }
+    ],
+    "CER": [
+      { "model": "IndicConformer", "value": 0.88, "std": null }
+    ],
+    "PER": [
+      { "model": "IndicConformer", "value": 1.01, "std": null }
+    ]
+  }
+}
